@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Home - Pandharpur Guide{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="carousel-container">
+        <div class="arrow left" onclick="previousImage()">❮</div>
+        <div class="carousel">
+            <img alt="Temple complex with gardens and pathways" 
+                src="https://storage.googleapis.com/a1aa/image/GYiXQiGVy66DPlRPr7WoqfS3EwVQqQxTKtO3cV3mmRfSRTBUA.jpg" />
+            <img alt="Another beautiful view" 
+                src="https://www.trawell.in/admin/images/upload/343719885iskcon-temple.jpg" />
+            <img alt="A river near a temple" 
+                src="https://static2.tripoto.com/media/filter/tst/img/272629/TripDocument/1555492785_img_20170702_wa0076.jpg" />
+        </div>
+        <div class="arrow right" onclick="nextImage()">❯</div>
+    </div>
+</div>
+
+<style>
+    .content {
+        position: relative;
+        max-width: 1000px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel img {
+        width: 1000px;
+        height: 500px;
+        flex-shrink: 0;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .arrow.left {
+        left: 20px;
+    }
+
+    .arrow.right {
+        right: 20px;
+    }
+
+    .arrow:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
+</style>
+
+<script>
+    let currentIndex = 0;
+
+    function updateCarousel() {
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
+        const offset = -currentIndex * 1000; // Adjust for image width
+        carousel.style.transform = `translateX(${offset}px)`;
+    }
+
+    function previousImage() {
+        const images = document.querySelectorAll('.carousel img');
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        updateCarousel();
+    }
+
+    function nextImage() {
+        const images = document.querySelectorAll('.carousel img');
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
+    }
+</script>
+{% endblock content %}
